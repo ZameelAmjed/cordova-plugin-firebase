@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Random;
 import java.util.Map;
 
 
@@ -53,6 +54,12 @@ public class FirebasePluginMessagingService extends FirebaseMessagingService {
             text = remoteMessage.getData().get("text");
             id = remoteMessage.getData().get("id");
 
+        }
+        //if no id is set set a random id
+        if(TextUtils.isEmpty(id)){
+            Random rand = new Random();
+            int  n = rand.nextInt(50) + 1;
+            id = Integer.toString(n);
         }
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message id: " + id);
